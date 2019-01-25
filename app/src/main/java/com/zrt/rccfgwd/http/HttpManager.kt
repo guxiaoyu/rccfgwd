@@ -3,10 +3,11 @@ package com.zrt.rccfgwd.http
 import android.os.Build
 import android.text.TextUtils
 import android.util.ArrayMap
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import java.util.logging.Logger
 
 /**
  * Created by Administrator on 2019/1/25.
@@ -52,8 +53,10 @@ open class HttpManager{
     }
 
     fun init(client: OkHttpClient) {
-//        Logger.
+        Logger.addLogAdapter(AndroidLogAdapter())
+        this.client = client
     }
+
 
 
 }
