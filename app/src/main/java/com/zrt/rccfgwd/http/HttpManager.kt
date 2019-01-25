@@ -6,6 +6,7 @@ import android.util.ArrayMap
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import java.util.logging.Logger
 
 /**
  * Created by Administrator on 2019/1/25.
@@ -43,11 +44,15 @@ open class HttpManager{
         }else{
             var url = retrofit?.baseUrl().toString()
             if (!TextUtils.equals(base_url,url)){
-
+                this.retrofit!!.newBuilder().baseUrl(base_url).build()
             }
         }
 
         return this.retrofit
+    }
+
+    fun init(client: OkHttpClient) {
+//        Logger.
     }
 
 
