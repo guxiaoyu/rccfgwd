@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.util.ArrayMap
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import com.zrt.rccfgwd.base.BaseResultCallBack
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -58,5 +59,11 @@ open class HttpManager{
     }
 
 
-
+//    fun <T> execute(call:Call<T>,callBack:BaseResultCallBack<T>){
+//
+//    }
+//
+//    fun <T> execute(call:Call<T>,requestId:Object,callBack: BaseResultCallBack<T>){
+//
+//    }
 }
