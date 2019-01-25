@@ -6,7 +6,7 @@ import android.util.ArrayMap
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.zrt.rccfgwd.base.BaseResultCallBack
-import okhttp3.Call
+import retrofit2.Call
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
@@ -59,11 +59,19 @@ open class HttpManager{
     }
 
 
-//    fun <T> execute(call:Call<T>,callBack:BaseResultCallBack<T>){
+//    fun <T> execute(call:retrofit2.Call<T>,callBack:BaseResultCallBack<T>){
 //
 //    }
 //
-//    fun <T> execute(call:Call<T>,requestId:Object,callBack: BaseResultCallBack<T>){
-//
+//    fun <T> execute(call:retrofit2.Call<T>,requestId:Object,callBack: BaseResultCallBack<T>){
+//        if(call!=null){
+//            if (this.requests?.containsKey(requestId)!!){
+//                var calls = this.requests?.get(requestId) as MutableList<Call>
+//                calls.add(call)
+//            }else{
+//                var calls = MutableList<Call>()
+//                calls.add(call)
+//            }
+//        }
 //    }
 }
