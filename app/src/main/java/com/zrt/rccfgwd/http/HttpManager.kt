@@ -49,7 +49,7 @@ open class HttpManager{
         if (retrofit == null) {
             this.retrofit = client?.let { RetrofitHelper.getRetrofit(it, base_url) }
         }else{
-            var url = retrofit?.baseUrl().toString()
+            val url = retrofit?.baseUrl().toString()
             if (!TextUtils.equals(base_url,url)){
                 this.retrofit!!.newBuilder().baseUrl(base_url).build()
             }
@@ -65,11 +65,11 @@ open class HttpManager{
 
 
     fun <T> execute(call:Call<T>,callBack:BaseResultCallBack<T>){
-
+        this.execute(call,"null",callBack)
     }
 
     fun <T> execute(call:Call<T>,requestId:Any,callBack: BaseResultCallBack<T>){
-        if(call!=null){
+//        if(call!=null){
             if (this.requests.containsKey(requestId)){
                 val calls = this.requests[requestId] as MutableList<Call<T>>
                 calls.add(call)
@@ -78,26 +78,26 @@ open class HttpManager{
                 calls.add(call)
                 this.requests[requestId] = calls  as MutableList<Call<Any>>
             }
-        }
+//        }
 
-        callBack?.onStart()
+        callBack.onStart()
 
         call.enqueue(object :Callback<T>{
             override fun onResponse(call: Call<T>?, response: Response<T>?) {
                 if (response!!.isSuccessful){
-                    callBack?.onSuccess(response.body()!!)
+                    callBack.onSuccess(response.body()!!)
                 }else {
-                    callBack?.onFailure(response.code(), "连接失败，请重试" + response.code())
+                    callBack.onFailure(response.code(), "连接失败，请重试" + response.code())
                 }
 
-                callBack?.onFinish()
+                callBack.onFinish()
 
-                removeCall<T>(requestId, call as Call<T>)
+                removeCall(requestId, call as Call<T>)
 
             }
 
             override fun onFailure(call: Call<T>?, t: Throwable?) {
-                callBack?.onFinish()
+                callBack.onFinish()
 
                 if (!call!!.isCanceled){
                     if (t is SocketTimeoutException) {
@@ -122,7 +122,7 @@ open class HttpManager{
 
     fun <T> removeCall(requestId: Any,call: Call<T>){
         val calls = this.requests[requestId] as MutableList<Call<T>>
-        calls?.remove(call)
+        calls.remove(call)
         if(calls.isEmpty())
             this.requests.remove(requestId)
     }
