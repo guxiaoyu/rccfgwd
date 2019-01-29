@@ -11,8 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Created by Administrator on 2019/1/25.
  */
-class RetrofitHelper {
-    companion object{
+object RetrofitHelper {
+//    companion object{
         fun getRetrofit(client:OkHttpClient,base_url:String):Retrofit{
             var gson = GsonBuilder().create()
             var builder = Retrofit.Builder().baseUrl(base_url).client(client)
@@ -21,6 +21,6 @@ class RetrofitHelper {
             var retrofit = builder.build()
             return retrofit
         }
-    }
+//    }
 
 }
