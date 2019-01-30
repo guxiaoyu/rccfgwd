@@ -18,7 +18,7 @@ object EncryptionTools {
         NONCE = Random().nextInt(10000).toString()
         var stitching = Token + TIMESTAMP + NONCE
         var str = sort(stitching) + Config.key
-//        SIGNATURE =
+        SIGNATURE = MD5Util.encrypt(str)
     }
 
     fun getDateToString(pattern:String):String{

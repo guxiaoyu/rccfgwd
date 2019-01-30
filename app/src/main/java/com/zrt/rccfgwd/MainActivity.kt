@@ -5,6 +5,9 @@ import com.zrt.rccfgwd.entity.VersionRequestBody
 import com.zrt.rccfgwd.main.IMainView
 import com.zrt.rccfgwd.main.MainModel
 import com.zrt.rccfgwd.main.MainPresenter
+import com.zrt.rccfgwd.utils.EncryptionTools
+import com.zrt.rccfgwd.utils.RccfUtils
+import com.zrt.rccfgwd.utils.SpUtils
 
 class MainActivity : BaseActivity(), IMainView {
     override fun showDialog() {
@@ -26,9 +29,20 @@ class MainActivity : BaseActivity(), IMainView {
     }
 
     override fun initData() {
-//        var versionRequestBody = VersionRequestBody(
-//
-//        )
+        EncryptionTools.initEncrypMD5(SpUtils.getToken(MyApplication.instance))
+        var versionRequestBody = VersionRequestBody(
+                SpUtils.getToken(MyApplication.instance),
+                EncryptionTools.TIMESTAMP,
+                EncryptionTools.NONCE,
+                EncryptionTools.SIGNATURE,
+                "3",
+                "OperationSyste:"+"Android"+RccfUtils.getSystemVersion()+"ApplicationVersion:"
+        +RccfUtils.getVersionName(MyApplication.instance)+"("+RccfUtils.getVersionCode(MyApplication.instance)
+        +")"+"PhoneModels:"+RccfUtils.getSystemModel(),
+                "",
+                "1"
+        )
+        mPresenter?.pullData(versionRequestBody)
 
     }
 

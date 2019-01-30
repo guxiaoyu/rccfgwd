@@ -8,7 +8,7 @@ import android.app.Application
 class MyApplication :Application(){
     companion object{
         val APP_ID = "wxd04e84116973343d"//正式appid
-        var instance:MyApplication?=null//空安全
+        lateinit var instance:MyApplication
     }
 
     override fun onCreate() {
