@@ -1,6 +1,7 @@
 package com.zrt.rccfgwd
 
 import com.zrt.rccfgwd.base.BaseActivity
+import com.zrt.rccfgwd.entity.VersionRequestBody
 import com.zrt.rccfgwd.main.IMainView
 import com.zrt.rccfgwd.main.MainModel
 import com.zrt.rccfgwd.main.MainPresenter
@@ -25,6 +26,10 @@ class MainActivity : BaseActivity(), IMainView {
     }
 
     override fun initData() {
+//        var versionRequestBody = VersionRequestBody(
+//
+//        )
+
     }
 
     override fun initPresenter() {

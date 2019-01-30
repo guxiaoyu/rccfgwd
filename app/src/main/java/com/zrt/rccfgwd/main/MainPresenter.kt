@@ -1,6 +1,7 @@
 package com.zrt.rccfgwd.main
 
 import com.zrt.rccfgwd.base.PresentCallBack
+import com.zrt.rccfgwd.entity.VersionRequestBody
 
 /**
  * Created by Administrator on 2019/1/23.
@@ -9,9 +10,9 @@ class MainPresenter {
     private var mModel:MainModel?=null
     private var mView:IMainView?=null
 
-    fun pullData(msg:String){
+    fun pullData(versionRequestBody: VersionRequestBody){
         mView?.showLoading("")
-        mModel?.getAppVersion(object :PresentCallBack<String>{
+        mModel?.getAppVersion(versionRequestBody,object :PresentCallBack<String>{
             override fun onBack(t: String) {
                 mView?.showDialog()
             }
