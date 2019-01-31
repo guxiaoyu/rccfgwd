@@ -1,5 +1,6 @@
 package com.zrt.rccfgwd.http
 
+import com.orhanobut.logger.Logger
 import okhttp3.logging.HttpLoggingInterceptor
 
 
@@ -8,31 +9,34 @@ import okhttp3.logging.HttpLoggingInterceptor
  */
 class LogInterceptor : HttpLoggingInterceptor.Logger {
     private var mMessage = StringBuilder()
-
+    private var formatJson = ""
     override fun log(message: String ) {
+
         try {
             if (message.startsWith("--> POST") || message.startsWith("-->GET")){
                 this.mMessage.setLength(0)
             }
             if(message.startsWith("{") && message.endsWith("}") || message.startsWith("[") && message.endsWith("]")){
-                message = formatJson(decodeUnicode(message))
-                message = formatJson(decodeUnicode(message))
+                formatJson = formatJson(decodeUnicode(message))
             }
-            this.mMessage.append(message + "\n")
+            this.mMessage.append(formatJson + "\n")
+            if (message.startsWith("<-- END HTTP")){
+                Logger.i(this.mMessage.toString(), arrayOfNulls<Any>(0))
+            }
         }catch (e:Exception){
             e.printStackTrace()
         }
     }
 
     fun formatJson(jsonStr:String):String{
-        if (null !=jsonStr && !"".equals(jsonStr)){
-            var sb = StringBuilder()
+        if (""!=jsonStr){
+            val sb = StringBuilder()
             var last = false
             var current = ' '
             var indent = 0
 
             for (i in 0..jsonStr.length){
-                var last = current
+                val last = current
                 current = jsonStr[i]
                 when(current){
                     ',' ->{
