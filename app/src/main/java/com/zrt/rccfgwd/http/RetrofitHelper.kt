@@ -14,11 +14,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitHelper {
 //    companion object{
         fun getRetrofit(client:OkHttpClient,base_url:String):Retrofit{
-            var gson = GsonBuilder().create()
-            var builder = Retrofit.Builder().baseUrl(base_url).client(client)
+            val gson = GsonBuilder().create()
+            val builder = Retrofit.Builder().baseUrl(base_url).client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            var retrofit = builder.build()
+            val retrofit = builder.build()
             return retrofit
         }
 //    }
