@@ -33,9 +33,9 @@ open class HttpManager{
         }
     }
 
-    lateinit var retrofit:Retrofit
+    var retrofit:Retrofit ?= null
     lateinit var client:OkHttpClient
-    lateinit var requests:MutableMap<Any,MutableList<Call<Any>>>
+    var requests:MutableMap<Any,MutableList<Call<Any>>>
 
     init {
         if (Build.VERSION.SDK_INT >= 19){
@@ -49,9 +49,9 @@ open class HttpManager{
         if (retrofit == null) {
             this.retrofit = client.let { RetrofitHelper.getRetrofit(it, base_url) }
         }else{
-            val url = retrofit.baseUrl().toString()
+            val url = retrofit!!.baseUrl().toString()
             if (!TextUtils.equals(base_url,url)){
-                this.retrofit.newBuilder().baseUrl(base_url).build()
+                this.retrofit!!.newBuilder().baseUrl(base_url).build()
             }
         }
 

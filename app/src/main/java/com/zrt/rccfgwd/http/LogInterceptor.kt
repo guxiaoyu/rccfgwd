@@ -12,15 +12,16 @@ class LogInterceptor : HttpLoggingInterceptor.Logger {
     private var formatJson = ""
     override fun log(message: String ) {
 
+        formatJson = message
         try {
-            if (message.startsWith("--> POST") || message.startsWith("-->GET")){
+            if (formatJson.startsWith("--> POST") || formatJson.startsWith("-->GET")){
                 this.mMessage.setLength(0)
             }
-            if(message.startsWith("{") && message.endsWith("}") || message.startsWith("[") && message.endsWith("]")){
-                formatJson = formatJson(decodeUnicode(message))
+            if(formatJson.startsWith("{") && formatJson.endsWith("}") || formatJson.startsWith("[") && formatJson.endsWith("]")){
+                formatJson = formatJson(decodeUnicode(formatJson))
             }
             this.mMessage.append(formatJson + "\n")
-            if (message.startsWith("<-- END HTTP")){
+            if (formatJson.startsWith("<-- END HTTP")){
                 Logger.i(this.mMessage.toString(), arrayOfNulls<Any>(0))
             }
         }catch (e:Exception){
@@ -35,7 +36,7 @@ class LogInterceptor : HttpLoggingInterceptor.Logger {
             var current = ' '
             var indent = 0
 
-            for (i in 0..jsonStr.length){
+            for (i in 0..jsonStr.length-1){
                 val last = current
                 current = jsonStr[i]
                 when(current){

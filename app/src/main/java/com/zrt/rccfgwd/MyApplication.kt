@@ -4,6 +4,7 @@ import android.app.Application
 import com.zrt.rccfgwd.http.HttpManager
 import com.zrt.rccfgwd.http.OkHttpClientHelper
 import okhttp3.Interceptor
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 
 /**
@@ -19,7 +20,7 @@ class MyApplication :Application(){
         super.onCreate()
         instance = this
 
-        val client = OkHttpClientHelper.getOkHttpClient(this.applicationContext, HttpLoggingInterceptor.Level.BODY, Interceptor())
+        val client = OkHttpClientHelper.getOkHttpClient(this.applicationContext, HttpLoggingInterceptor.Level.BODY, Interceptor { chain -> chain.proceed(chain.request()) })
         HttpManager.get().init(client)
 
     }

@@ -24,7 +24,7 @@ object OkHttpClientHelper {
         builder.connectTimeout(15L,TimeUnit.SECONDS)
         builder.writeTimeout(15L,TimeUnit.SECONDS)
         builder.readTimeout(15L,TimeUnit.SECONDS)
-        if (interceptors!=null && interceptors.size!=0){
+        if ( interceptors.isNotEmpty()){
             val interceptors1 = interceptors
             val size = interceptors1.size
             (0..size.minus(1))

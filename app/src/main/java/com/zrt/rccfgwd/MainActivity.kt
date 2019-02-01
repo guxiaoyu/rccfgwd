@@ -30,7 +30,7 @@ class MainActivity : BaseActivity(), IMainView {
 
     override fun initData() {
         EncryptionTools.initEncrypMD5(SpUtils.getToken(MyApplication.instance))
-        var versionRequestBody = VersionRequestBody(
+        val versionRequestBody = VersionRequestBody(
                 SpUtils.getToken(MyApplication.instance),
                 EncryptionTools.TIMESTAMP,
                 EncryptionTools.NONCE,
@@ -50,6 +50,11 @@ class MainActivity : BaseActivity(), IMainView {
         mPresenter = MainPresenter()
         mModel = MainModel()
         mPresenter?.setVM(this, mModel!!)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter?.onDestory()
     }
 
 }

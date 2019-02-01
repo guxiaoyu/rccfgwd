@@ -1,7 +1,9 @@
 package com.zrt.rccfgwd.main
 
 import com.zrt.rccfgwd.base.PresentCallBack
+import com.zrt.rccfgwd.entity.VersionEntity
 import com.zrt.rccfgwd.entity.VersionRequestBody
+import com.zrt.rccfgwd.utils.MyLogUtils
 
 /**
  * Created by Administrator on 2019/1/23.
@@ -12,16 +14,22 @@ class MainPresenter {
 
     fun pullData(versionRequestBody: VersionRequestBody){
         mView?.showLoading("")
-        mModel?.getAppVersion(versionRequestBody,object :PresentCallBack<String>{
-            override fun onBack(t: String) {
+        mModel?.getAppVersion(versionRequestBody,object :PresentCallBack<VersionEntity>{
+            override fun onBack(t: VersionEntity) {
+                MyLogUtils.get().error("response:onBack"+t)
                 mView?.showDialog()
+                mView?.stopLoading()
             }
 
             override fun onError(error: String) {
-                mView?.showError(error)
+                MyLogUtils.get().error("response:onError"+error)
+//                mView?.showError(error)
+                mView?.stopLoading()
+
             }
 
             override fun onFinish() {
+                MyLogUtils.get().error("response:onFinish")
                 mView?.stopLoading()
             }
 
@@ -33,7 +41,7 @@ class MainPresenter {
         this.mModel = mainModel
     }
 
-    fun onDeatory(){
+    fun onDestory(){
         this.mView = null
         this.mModel = null
     }

@@ -2,6 +2,7 @@ package com.zrt.rccfgwd.http
 
 import com.zrt.rccfgwd.entity.UserBean
 import com.zrt.rccfgwd.entity.UserRequestBody
+import com.zrt.rccfgwd.entity.VersionEntity
 import com.zrt.rccfgwd.entity.VersionRequestBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -16,5 +17,5 @@ interface RccfService{
     fun login(@Body body:UserRequestBody): Call<ResultBean<UserBean>>
 
     @POST("/app/advisor/public/getAdvisorAppVersion.do")
-    fun getAppVersion(@Body body:VersionRequestBody) :Call<ResultBean<String>>
+    fun getAppVersion(@Body body:VersionRequestBody) :Call<ResultBean<VersionEntity>>
 }
